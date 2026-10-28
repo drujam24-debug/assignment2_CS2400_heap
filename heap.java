@@ -1,11 +1,18 @@
 public class heap {
-    public class maxHeapSequential(int[] arr){ //time complexity O(nlogn) because we call heapifyUp per n elements AND
 
-        int swapCount = 0;
+    private static int swapCount = 0;
+
+    //insert ele one at a time
+    //time complexity O(nlogn) because we call heapifyUp per n elements and each cost O(logn)
+
+    public class maxHeapSequential(int[] arr){ 
+        swapCount = 0;
 
         for (int i = 1; i < arr.length; i++){
             heapifyUp(arr, i);
         }
+
+        return swapCount;
 
     }
 
@@ -31,8 +38,13 @@ public class heap {
 
     public class maxHeapOptimal(){ //time complexity O(n) because we call heapifyDown per n/2 elements AND
 
-        int swapCount = 0;
-
+        swapCount = 0;
+ 
+        for (int i = arr.length / 2 - 1; i >= 0; i--) {
+            heapifyDown(arr, i, arr.length);
+        }
+ 
+        return swapCount;
     }
 
     public class maxHeapRemove(int[] arr){
