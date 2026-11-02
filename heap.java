@@ -144,7 +144,7 @@ public final class heap {
         lastIndex++;
     }
 
-    public static int maxHeapSequential(int[] arr) {
+    public static int maxHeapSequential(int[] arr) {//FIXXX
         swapCount = 0;
 
         for (int i = 1; i < arr.length; i++) {
@@ -154,7 +154,7 @@ public final class heap {
         return swapCount;
     }
 
-    private static void heapifyUp(int[] arr, int index) {
+    private static void heapifyUp(int[] arr, int index) {//FIXXX
         int current = index;
         int parent = (current - 1) / 2;
 
@@ -165,7 +165,7 @@ public final class heap {
         }
     }
 
-    public static int maxHeapOptimal(int[] arr) {
+    public static int maxHeapOptimal(int[] arr) {//FIXXX
         swapCount = 0;
 
         for (int i = arr.length / 2 - 1; i >= 0; i--) {
@@ -175,7 +175,7 @@ public final class heap {
         return swapCount;
     }
 
-    private static void heapifyDown(int[] arr, int index, int size) {
+    private static void heapifyDown(int[] arr, int index, int size) {//FIXXX
         int current = index;
 
         while (true) {
@@ -198,7 +198,7 @@ public final class heap {
         }
     }
 
-    public static void maxHeapRemove(int[] arr, int size) {
+    public static void maxHeapRemove(int[] arr, int size) {//FIXXX
         if (size <= 0 || size > arr.length) {
             throw new IllegalArgumentException("Heap size must be between 1 and the array length.");
         }
@@ -208,7 +208,7 @@ public final class heap {
     }
 
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException {//FIXXX
         //set up to gather data then try both implementations of maxheap, sequential and optimal, and output the number of swaps for each
         int[] data = Files.readAllLines(Paths.get("data.txt")).stream() //read file and convert into array, proccessing the lines one at a time with .stream()
                 .map(String::trim)
@@ -217,7 +217,7 @@ public final class heap {
                 .toArray(); //collect the integers into an array
         int[] sequential = Arrays.copyOf(data, data.length);
         int[] optimal = Arrays.copyOf(data, data.length);
-        
+
         System.out.println("Array after maxHeapSequential: " + Arrays.toString(sequential));
         System.out.println("Number of swaps (sequential): " + getSwapCount());
 
