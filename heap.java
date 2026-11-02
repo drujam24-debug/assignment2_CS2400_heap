@@ -36,6 +36,14 @@ public final class heap {
         }
     }
 
+    private void ensureCapacity(int requiredCapacity) {
+        checkCapacity(requiredCapacity);
+        if (requiredCapacity > heapArray.length) {
+            int newCapacity = Math.min(heapArray.length * 2, MAX_CAP);
+            heapArray = Arrays.copyOf(heapArray, Math.max(newCapacity, requiredCapacity));
+        }
+    }
+
     public void checkInitialization(){
         if (!initialized){
             throw new SecurityException("Heap is yet to be initialized, must be an error in creating heapArray");
@@ -120,9 +128,20 @@ public final class heap {
 
     public void add (Integer newEntry){
         checkInitialization();
+        ensureCapacity(lastIndex + 2); //lastnidex is an index not exactly size, +1 for next avaibel index, +2 for actual size
+
+        int newIndex = lastIndex + 1;
+        int parentIndex = (newIndex - 1) / 2;
+
+        while(newIndex > 0 && newEntry.compareTo(heapArray[parentIndex]) > 0){
+            heapArray[newIndex] = heapArray[parentIndex];
+            newIndex = parentIndex;
+            swapCount++;
+            parentIndex = (newIndex - 1) / 2;  
+        }
+
+        heapArray[newIndex] = newEntry;
         lastIndex++;
-        heapArray[lastIndex] = newEntry;
-        reheapAdd(lastIndex);
     }
 
     public static int maxHeapSequential(int[] arr) {
@@ -188,12 +207,6 @@ public final class heap {
         heapifyDown(arr, 0, size - 1);
     }
 
-    private static void swap(int[] arr, int i, int j) {
-        int temp = arr[i];
-        arr[i] = arr[j];
-        arr[j] = temp;
-        swapCount++;
-    }
 
     public static void main(String[] args) throws IOException {
         int[] data = Files.readAllLines(Paths.get("data.txt")).stream() //read file and convert into array, proccessing the lines one at a time with .stream()
