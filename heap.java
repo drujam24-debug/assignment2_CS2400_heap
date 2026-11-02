@@ -3,10 +3,10 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Arrays;
 
-public class heap {
+public final class heap {
     private static int swapCount;
     private int lastIndex;
-    private static int[] heapArray;
+    private Integer[] heapArray;
     private boolean initialized = false;
     private static final int DEFAULT_CAPACITY = 25;
     private static final int MAX_CAP = 10000;
@@ -23,8 +23,7 @@ public class heap {
             checkCapacity(capacity);
         }
         
-        @SusspressWarnings("unchecked")
-        int tempHeap[] = new int [capacity]:
+        Integer tempHeap[] = new Integer [capacity];
         heapArray = tempHeap;
         lastIndex = -1;
         swapCount = 0;
@@ -38,15 +37,17 @@ public class heap {
     }
 
     public void checkInitialization(){
-        if (!intializaed){
-            throw new SecuirityException("Heap is yet to be initialized, must be an error in creating heapArray");
+        if (!initialized){
+            throw new SecurityException("Heap is yet to be initialized, must be an error in creating heapArray");
         }
     }
 
-    public int getMax(){
+    public Integer getMax(){
         checkInitialization();
-        int root = heapArray[0];
-        return root;
+        if (isEmpty()) {
+            throw new IllegalStateException("Heap is empty, cannot get max");
+        }
+        return heapArray[0];
     }
 
     public boolean isEmpty(){
@@ -72,17 +73,56 @@ public class heap {
         lastIndex = -1;
     }
 
-    public int removeMax(){
+    public Integer removeMax(){
         checkInitialization();
+        Integer root = null;
+
         if (isEmpty()){
             throw new IllegalStateException("Heap is empty, cannot remove max");
         }
 
-        int root = heapArray[0];
-        heapArray[0] = heapArray[lastIndex];
-        lastIndex--;
-        heapifyDown(0);
+        if (!isEmpty()){
+            root = heapArray[0];
+            heapArray[0] = heapArray[lastIndex];
+            lastIndex--;
+            reheap(0);
+        }
+
         return root;
+    }
+
+    public void reheap(int rootIndex){
+        boolean done = false;
+        Integer orphan = heapArray[rootIndex]; //or parent kinda, the very root with no parents
+        int leftChildIndex = (2 * rootIndex) + 1; //since our root is at index 0 FIXXXXXXXXXXXXXXX
+
+        while (!done && (leftChildIndex <= lastIndex)){
+            int largerChildIndex = leftChildIndex;
+            int rightChildIndex = leftChildIndex + 1;
+
+            if (rightChildIndex <= lastIndex
+                    && heapArray[rightChildIndex].compareTo(heapArray[largerChildIndex]) > 0) {
+                largerChildIndex = rightChildIndex;
+            }
+
+            if (orphan.compareTo(heapArray[largerChildIndex]) < 0){
+                heapArray[rootIndex] = heapArray[largerChildIndex];
+                rootIndex = largerChildIndex; //we moving to larger child as new root to repair rest of subtree
+                leftChildIndex = (2 * rootIndex) + 1;
+            }
+            else {
+                done = true;
+            }
+        }
+
+        heapArray[rootIndex] = orphan;  //assure we leave the node at right spot in tree after repair
+    }
+
+    public void add (Integer newEntry){
+        checkInitialization();
+        lastIndex++;
+        heapArray[lastIndex] = newEntry;
+        reheapAdd(lastIndex);
     }
 
     public static int maxHeapSequential(int[] arr) {
