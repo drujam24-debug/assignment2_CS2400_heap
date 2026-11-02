@@ -209,6 +209,7 @@ public final class heap {
 
 
     public static void main(String[] args) throws IOException {
+        //set up to gather data then try both implementations of maxheap, sequential and optimal, and output the number of swaps for each
         int[] data = Files.readAllLines(Paths.get("data.txt")).stream() //read file and convert into array, proccessing the lines one at a time with .stream()
                 .map(String::trim)
                 .filter(line -> !line.isEmpty()) //skip blank lines
@@ -216,12 +217,10 @@ public final class heap {
                 .toArray(); //collect the integers into an array
         int[] sequential = Arrays.copyOf(data, data.length);
         int[] optimal = Arrays.copyOf(data, data.length);
-
-        int sequentialSwaps = maxHeapSequential(sequential);
+        
         System.out.println("Array after maxHeapSequential: " + Arrays.toString(sequential));
         System.out.println("Number of swaps (sequential): " + getSwapCount());
 
-        int optimalSwaps = maxHeapOptimal(optimal);
         System.out.println("Array after maxHeapOptimal: " + Arrays.toString(optimal));
         System.out.println("Number of swaps (optimal): " + getSwapCount());
     }
