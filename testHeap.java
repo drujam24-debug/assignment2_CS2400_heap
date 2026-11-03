@@ -13,11 +13,11 @@ public class testHeap {
     public static void main(String[] args) throws IOException {
         // Read the 100 positive, nonduplicate integers from data.txt
         List<String> lines = Files.readAllLines(Paths.get("data.txt"));
-        int[] data = lines.stream().map(String::trim).filter(s -> !s.isEmpty())
-                          .mapToInt(Integer::parseInt).toArray();
+        Integer[] data = lines.stream().map(String::trim).filter(s -> !s.isEmpty())
+                              .map(Integer::valueOf).toArray(Integer[]::new);
 
-        int[] sequential = Arrays.copyOf(data, data.length);
-        int[] optimal = Arrays.copyOf(data, data.length);
+        Integer[] sequential = Arrays.copyOf(data, data.length);
+        Integer[] optimal = Arrays.copyOf(data, data.length);
 
         try (PrintWriter out = new PrintWriter("output.txt")) {
             out.println(LINE);
@@ -41,7 +41,7 @@ public class testHeap {
     }
 
     // Removes the max 10 times; removed values end up past the shrunken heap
-    private static void removeTen(int[] arr) {
+    private static void removeTen(Integer[] arr) {
         int size = arr.length;
         for (int i = 0; i < 10; i++) {
             heap.maxHeapRemove(arr, size);
@@ -50,9 +50,9 @@ public class testHeap {
     }
 
     // First 10 array values, comma-separated, followed by ",..."
-    private static String first10(int[] arr) {
+    private static String first10(Integer[] arr) {
         return Arrays.stream(arr, 0, 10)
-                     .mapToObj(String::valueOf)
+                     .map(String::valueOf)
                      .collect(Collectors.joining(",")) + ",...";
     }
 }
