@@ -1,6 +1,3 @@
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.Arrays;
 
 public final class heap {
@@ -145,7 +142,7 @@ public final class heap {
         lastIndex++;
     }
 
-    public static void maxHeapSequential(Integer[] arr) { //fill up the heap
+    public static heap maxHeapSequential(Integer[] arr) { //fill up the heap
         heap sequentialHeap = new heap(arr.length); //gotta make that heap for all these heap stuff, initialize, heap heap hurray
 
         for (Integer value : arr) {//this is the main sequential insertion part by repeating add()
@@ -156,9 +153,10 @@ public final class heap {
             arr[i] = sequentialHeap.heapArray[i]; //sequentialHeap is not array, it object of heap, need that .heapArray at end to get the actual array
         }
         
+        return sequentialHeap;
     }
 
-    public static void maxHeapOptimal(Integer[] arr) {//fill up the heap optimally FIXXX
+    public static heap maxHeapOptimal(Integer[] arr) {//fill up the heap optimally FIXXX
         heap optimalHeap = new heap (arr.length);
 
         for (int i = arr.length / 2 - 1; i >= 0; i--) {
@@ -170,9 +168,13 @@ public final class heap {
             optimalHeap.reheap(i);
         }
 
+        return optimalHeap;
+
     }
 
     //go add some methods for testing in testHeap, that's where you should do the removing then writing the outputs or whatever else is needed
+/* not sure if should even be a main() method here other then call testHeap.java
+
     public static void main(String[] args) throws IOException {//FIXXX
         //set up to gather data then try both implementations of maxheap, sequential and optimal, and output the number of swaps for each
         Integer[] data = Files.readAllLines(Paths.get("data.txt")).stream() //read file and convert into array, proccessing the lines one at a time with .stream()
@@ -193,4 +195,6 @@ public final class heap {
         System.out.println("Array after maxHeapOptimal: " + Arrays.toString(optimal));
         System.out.println("Number of swaps (optimal): " + getSwapCount());
     }
+
+*/
 }

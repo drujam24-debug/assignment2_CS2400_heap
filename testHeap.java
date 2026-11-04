@@ -23,39 +23,32 @@ public class testHeap {
             out.println(LINE);
 
             // Sequential insertions
-            heap.maxHeapSequential(sequentialTEST);
+            heap sequentialHeapTEST = heap.maxHeapSequential(sequentialTEST);
 
             System.out.println("Array after maxHeapSequential: " + Arrays.toString(sequentialTEST));
             System.out.println("Number of swaps (sequential): " + heap.getSwapCount());
 
-            removeTen();
+            removeTen(sequentialHeapTEST);
             out.println("Heap after 10 removals: " + first10(sequentialTEST));
 
             // Optimal (bottom-up) method
-            heap.maxHeapOptimal(optimalTEST);
+            heap optimalHeapTEST = heap.maxHeapOptimal(optimalTEST);
 
             System.out.println("Array after maxHeapOptimal: " + Arrays.toString(optimalTEST));
             System.out.println("Number of swaps (optimal): " + heap.getSwapCount());
 
-
-
-            //get rid of
-            
-
-            // Optimal (bottom-up) method
-           
-            removeTen();
-            out.println("Heap after 10 removals: " + first10(optimal));
+            removeTen(optimalHeapTEST);
+            out.println("Heap after 10 removals: " + first10(optimalTEST));
 
             out.println(LINE);
         }
     }
 
     // Removes the max 10 times; removed values end up past the shrunken heap
-    private static void removeTen(heap ) {
+    private static void removeTen(heap heapTEST) {
         
         for (int i = 0; i < 10; i++) {
-            heap.removeMax();
+            heapTEST.removeMax();
         }
 
     }
