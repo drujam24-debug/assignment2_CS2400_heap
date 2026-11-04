@@ -179,16 +179,6 @@ public final class heap {
 
     }
 
-    public static void maxHeapRemove(Integer[] arr, int size) {//FIXXX
-        if (size <= 0 || size > arr.length) {
-            throw new IllegalArgumentException("Heap size must be between 1 and the array length.");
-        }
-
-        swap(arr, 0, size - 1);
-        heapifyDown(arr, 0, size - 1);
-    }
-
-
     //go add some methods for testing in testHeap, that's where you should do the removing then writing the outputs or whatever else is needed
     public static void main(String[] args) throws IOException {//FIXXX
         //set up to gather data then try both implementations of maxheap, sequential and optimal, and output the number of swaps for each
