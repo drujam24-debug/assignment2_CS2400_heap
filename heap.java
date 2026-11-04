@@ -115,6 +115,7 @@ public final class heap {
 
             if (orphan.compareTo(heapArray[largerChildIndex]) < 0){
                 heapArray[rootIndex] = heapArray[largerChildIndex];
+                swapCount++;
                 rootIndex = largerChildIndex; //we moving to larger child as new root to repair rest of subtree
                 leftChildIndex = (2 * rootIndex) + 1;
             }
@@ -133,7 +134,7 @@ public final class heap {
         int newIndex = lastIndex + 1;
         int parentIndex = (newIndex - 1) / 2;
 
-        while(newIndex > 0 && newEntry.compareTo(heapArray[parentIndex]) > 0){
+        while(newIndex > 0 && newEntry.compareTo(heapArray[parentIndex]) > 0){ //>0 so can skip this cause mean it empty right now
             heapArray[newIndex] = heapArray[parentIndex];
             newIndex = parentIndex;
             swapCount++;
@@ -151,27 +152,31 @@ public final class heap {
         swapCount++;
     }
 
-    public static int maxHeapSequential(Integer[] arr) {
-        heap sequentialHeap = new heap(arr.length);
+    public static void maxHeapSequential(Integer[] arr) { //fill up the heap
+        heap sequentialHeap = new heap(arr.length); //gotta make that heap for all these heap stuff, initialize, heap heap hurray
 
-        for (Integer value : arr) {
+        for (Integer value : arr) {//this is the main sequential insertion part by repeating add()
             sequentialHeap.add(value);
         }
 
         for (int i = 0; i < arr.length; i++) {
-            arr[i] = sequentialHeap.heapArray[i];
+            arr[i] = sequentialHeap.heapArray[i]; //sequentialHeap is not array, it object of heap, need that .heapArray at end to get the actual array
         }
-        return swapCount;
+        
     }
 
-    public static int maxHeapOptimal(Integer[] arr) {//FIXXX
-        swapCount = 0;
+    public static void maxHeapOptimal(Integer[] arr) {//fill up the heap optimally FIXXX
+        heap optimalHeap = new heap (arr.length);
 
         for (int i = arr.length / 2 - 1; i >= 0; i--) {
-            heapifyDown(arr, i, arr.length);
+            optimalHeap.heapArray[i] = arr[i];
+            optimalHeap.lastIndex++;
         }
 
-        return swapCount;
+        for (int i = arr.length / 2 - 1; i >= 0; i--) {
+            optimalHeap.reheap(i);
+        }
+
     }
 
     private static void heapifyDown(Integer[] arr, int index, int size) {//FIXXX
@@ -207,6 +212,7 @@ public final class heap {
     }
 
 
+    //go add some methods for testing in testHeap, that's where you should do the removing then writing the outputs or whatever else is needed
     public static void main(String[] args) throws IOException {//FIXXX
         //set up to gather data then try both implementations of maxheap, sequential and optimal, and output the number of swaps for each
         Integer[] data = Files.readAllLines(Paths.get("data.txt")).stream() //read file and convert into array, proccessing the lines one at a time with .stream()
@@ -217,8 +223,12 @@ public final class heap {
         Integer[] sequential = Arrays.copyOf(data, data.length);
         Integer[] optimal = Arrays.copyOf(data, data.length);
 
+        maxHeapSequential(sequential);
+
         System.out.println("Array after maxHeapSequential: " + Arrays.toString(sequential));
         System.out.println("Number of swaps (sequential): " + getSwapCount());
+
+        maxHeapOptimal(optimal);
 
         System.out.println("Array after maxHeapOptimal: " + Arrays.toString(optimal));
         System.out.println("Number of swaps (optimal): " + getSwapCount());
