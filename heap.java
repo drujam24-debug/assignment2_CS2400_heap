@@ -179,29 +179,6 @@ public final class heap {
 
     }
 
-    private static void heapifyDown(Integer[] arr, int index, int size) {//FIXXX
-        int current = index;
-
-        while (true) {
-            int left = 2 * current + 1;
-            int right = 2 * current + 2;
-            int largest = current;
-
-            if (left < size && arr[left] > arr[largest]) {
-                largest = left;
-            }
-            if (right < size && arr[right] > arr[largest]) {
-                largest = right;
-            }
-            if (largest == current) {
-                return;
-            }
-
-            swap(arr, current, largest);
-            current = largest;
-        }
-    }
-
     public static void maxHeapRemove(Integer[] arr, int size) {//FIXXX
         if (size <= 0 || size > arr.length) {
             throw new IllegalArgumentException("Heap size must be between 1 and the array length.");
