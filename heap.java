@@ -145,13 +145,6 @@ public final class heap {
         lastIndex++;
     }
 
-    public static void swap(Integer[] arr, int i, int j) {//for heapifyDown, to count swaps
-        Integer temp = arr[i];
-        arr[i] = arr[j];
-        arr[j] = temp;
-        swapCount++;
-    }
-
     public static void maxHeapSequential(Integer[] arr) { //fill up the heap
         heap sequentialHeap = new heap(arr.length); //gotta make that heap for all these heap stuff, initialize, heap heap hurray
 
