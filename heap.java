@@ -156,11 +156,12 @@ public final class heap {
         return sequentialHeap;
     }
 
-    public static heap maxHeapOptimal(Integer[] arr) {//fill up the heap optimally FIXXX
+    public heap maxHeapOptimal(Integer[] arr) {//fill up the heap optimally FIXXX
         heap optimalHeap = new heap (arr.length);
 
-        for (int i = arr.length / 2 - 1; i >= 0; i--) {
+        for (int i = lastIndex ; i < arr.length - 1; i++) {
             optimalHeap.heapArray[i] = arr[i];
+            optimalHeap.reheap(i);
             optimalHeap.lastIndex++;
         }
 
