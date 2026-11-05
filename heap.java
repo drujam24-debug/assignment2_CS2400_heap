@@ -172,6 +172,13 @@ public final class heap {
 
     }
 
+    //returns a copy of the heap's array up to lastIndex, this is so first10() prints updated values after removals, not orginal array
+    //I FEEL LIKE THIS COULD BE IMPROVED FURTHER
+    public Integer[] toArray() {
+    checkInitialization();
+    return Arrays.copyOf(heapArray, lastIndex + 1);
+    }
+
     //go add some methods for testing in testHeap, that's where you should do the removing then writing the outputs or whatever else is needed
 /* not sure if should even be a main() method here other then call testHeap.java
 

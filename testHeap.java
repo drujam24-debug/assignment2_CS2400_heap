@@ -29,7 +29,7 @@ public class testHeap {
             System.out.println("Number of swaps (sequential): " + heap.getSwapCount());
 
             removeTen(sequentialHeapTEST);
-            out.println("Heap after 10 removals: " + first10(sequentialTEST));
+            out.println("Heap after 10 removals: " + first10(sequentialHeapTEST.toArray()));
 
             // Optimal (bottom-up) method
             heap optimalHeapTEST = heap.maxHeapOptimal(optimalTEST);
@@ -38,7 +38,7 @@ public class testHeap {
             System.out.println("Number of swaps (optimal): " + heap.getSwapCount());
 
             removeTen(optimalHeapTEST);
-            out.println("Heap after 10 removals: " + first10(optimalTEST));
+            out.println("Heap after 10 removals: " + first10(optimalHeapTEST.toArray()));
 
             out.println(LINE);
         }
