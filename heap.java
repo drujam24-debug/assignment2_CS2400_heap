@@ -148,24 +148,22 @@ public final class heap {
         for (Integer value : arr) {//this is the main sequential insertion part by repeating add()
             sequentialHeap.add(value);
         }
-
-        for (int i = 0; i < arr.length; i++) {
-            arr[i] = sequentialHeap.heapArray[i]; //sequentialHeap is not array, it object of heap, need that .heapArray at end to get the actual array
-        }
         
         return sequentialHeap;
     }
 
-    public heap maxHeapOptimal(Integer[] arr) {//fill up the heap optimally FIXXX
+    public static heap maxHeapOptimal(Integer[] arr) {//fill up the heap optimally FIXXX
         heap optimalHeap = new heap (arr.length);
+        optimalHeap.lastIndex = arr.length - 1; //set lastIndex to the last index of the array, that way reheap() should work properly when called in the loop below
 
-        for (int i = lastIndex ; i < arr.length - 1; i++) {
+        for (int i = arr.length - 1; i >= 0; i--) {
             optimalHeap.heapArray[i] = arr[i];
-            optimalHeap.reheap(i);
-            optimalHeap.lastIndex++;
+            optimalHeap.lastIndex--;
         }
 
-        for (int i = arr.length / 2 - 1; i >= 0; i--) {
+        optimalHeap.lastIndex = arr.length - 1; //reset lastIndex to the last index of the array after filling it up
+
+        for (int i = arr.length - 1; i >= 0; i--) {
             optimalHeap.reheap(i);
         }
 
