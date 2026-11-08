@@ -152,18 +152,14 @@ public final class heap {
         return sequentialHeap;
     }
 
+    //O(n) time complexity because we fill first then reheap(), leading to fewer swaps compared to add() method for sequential max heap build
     public static heap maxHeapOptimal(Integer[] arr) {//fill up the heap optimally FIXXX
         heap optimalHeap = new heap (arr.length);
-        optimalHeap.lastIndex = arr.length - 1; //set lastIndex to the last index of the array, that way reheap() should work properly when called in the loop below
 
-        for (int i = arr.length - 1; i >= 0; i--) {
-            optimalHeap.heapArray[i] = arr[i];
-            optimalHeap.lastIndex--;
-        }
-
+        optimalHeap.heapArray = Arrays.copyOf(arr, arr.length); //copy the array into the heap's array, this is the main optimal part, we fill up the heap first then reheap
         optimalHeap.lastIndex = arr.length - 1; //reset lastIndex to the last index of the array after filling it up
 
-        for (int i = arr.length - 1; i >= 0; i--) {
+        for (int i = (arr.length / 2) - 1; i >= 0; i--) { //length/2 - 1 to skip the leaf nodes
             optimalHeap.reheap(i);
         }
 
