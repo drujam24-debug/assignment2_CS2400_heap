@@ -86,12 +86,20 @@ public final class heap {
             throw new IllegalStateException("Heap is empty, cannot remove max");
         }
 
-        if (!isEmpty()){
-            root = heapArray[0];
-            heapArray[0] = heapArray[lastIndex];
+        root = heapArray[0];
+
+        if (lastIndex == 0){
+            heapArray[0] = null;
             lastIndex--;
-            reheap(0);
+            return root;
         }
+
+        heapArray[0] = heapArray[lastIndex];
+        heapArray[lastIndex] = null; //rid stale data, kinda a dupe anyways and not needed
+        lastIndex--;
+
+        reheap(0);
+        
 
         return root;
     }
