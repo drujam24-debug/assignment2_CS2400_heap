@@ -150,6 +150,7 @@ public final class heap {
         lastIndex++;
     }
 
+    //time complexity of O(n logn) because it relies on add() method which add then reheap each time, meaning more swaps then is needed
     public static heap maxHeapSequential(Integer[] arr) { //fill up the heap
         heap sequentialHeap = new heap(arr.length); //gotta make that heap for all these heap stuff, initialize, heap heap hurray
 
