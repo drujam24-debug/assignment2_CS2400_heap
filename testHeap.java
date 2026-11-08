@@ -31,6 +31,7 @@ public class testHeap {
             removeTen(sequentialHeapTEST);
             out.println("Heap after 10 removals: " + first10(sequentialHeapTEST.toArray()));
 
+            //we create new heap objects once past is complete else swapCount will face interference from previous heap object, so we create new heap objects for each test
             // Optimal (bottom-up) method
             heap optimalHeapTEST = heap.maxHeapOptimal(optimalTEST);
 

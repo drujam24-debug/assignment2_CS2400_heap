@@ -43,7 +43,7 @@ public final class heap {
 
     public void checkInitialization(){
         if (!initialized){
-            throw new SecurityException("Heap is yet to be initialized, must be an error in creating heapArray");
+            throw new IllegalStateException("Heap is yet to be initialized, must be an error in creating heapArray");
         }
     }
 
