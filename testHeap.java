@@ -25,18 +25,20 @@ public class testHeap {
             // Sequential insertions
             heap sequentialHeapTEST = heap.maxHeapSequential(sequentialTEST);
 
-            out.println("Array after maxHeapSequential: " + Arrays.toString(sequentialHeapTEST.toArray()));
-            out.println("Number of swaps (sequential): " + heap.getSwapCount());
+            out.println("Heap built using sequential insertions: " + first10(sequentialHeapTEST.toArray()));
+            out.println("Number of swaps in the heap creation: " + heap.getSwapCount());
 
             removeTen(sequentialHeapTEST);
             out.println("Heap after 10 removals: " + first10(sequentialHeapTEST.toArray()));
 
+            out.println("");
+            
             //we create new heap objects once past is complete else swapCount will face interference from previous heap object, so we create new heap objects for each test
             // Optimal (bottom-up) method
             heap optimalHeapTEST = heap.maxHeapOptimal(optimalTEST);
 
-            out.println("Array after maxHeapOptimal: " + Arrays.toString(optimalHeapTEST.toArray()));
-            out.println("Number of swaps (optimal): " + heap.getSwapCount());
+            out.println("Heap built using optimal method: " + first10(optimalHeapTEST.toArray()));
+            out.println("Number of swaps in the heap creation: " + heap.getSwapCount());
 
             removeTen(optimalHeapTEST);
             out.println("Heap after 10 removals: " + first10(optimalHeapTEST.toArray()));
